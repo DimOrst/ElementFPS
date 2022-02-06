@@ -5,6 +5,9 @@ using UnityEngine;
 public class ReactionManager : EleAndReaction
 {
     List<ReactionMsg> ReactionQuests = new List<ReactionMsg>();
+
+    public GameObject SmokePrefab;
+    public GameObject WaterThunderPrefab;
     
     public void SendNewReaction(ReactionMsg RMsg)
     {
@@ -19,7 +22,6 @@ public class ReactionManager : EleAndReaction
         }
     }
 
-    //今日任务：完成元素反应请求的解读与执行
     public void ExecuteRMsg(ReactionMsg QuestMsg)
     {
         //根据请求的反应器提供的信息将两者交给相应的反应函数
@@ -228,6 +230,7 @@ public class ReactionManager : EleAndReaction
                     if (RMsg.ReactorOne.ElementType == ElementCollection.Water)
                     {
                         Debug.Log(RMsg.ReactorOne.name + "水体导电，电击当前所接触的角色。");
+                        Instantiate(WaterThunderPrefab, RMsg.ReactorOne.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                     }
                     //在水面上生成导电效果，生成的电层视为弱元素
                     break;
@@ -251,6 +254,7 @@ public class ReactionManager : EleAndReaction
                     if (RMsg.ReactorTwo.ElementType == ElementCollection.Water)
                     {
                         Debug.Log(RMsg.ReactorTwo.name + "水体导电，电击当前所接触的角色。");
+                        Instantiate(WaterThunderPrefab, RMsg.ReactorOne.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                     }
                     //在水面上生成导电效果，生成的电层视为弱元素
                     break;
@@ -447,6 +451,7 @@ public class ReactionManager : EleAndReaction
         }
     }
 
+    //done
     public override void Vaperaize(ReactionMsg RMsg)
     {
         switch (RMsg.ReactorOne.OT)
@@ -465,6 +470,7 @@ public class ReactionManager : EleAndReaction
             case Reactor.ObjectType.WeakElement:
                 {
                     Debug.Log(RMsg.ReactorOne.name + "为弱元素，蒸发反应后应被摧毁");
+                    Instantiate(SmokePrefab, RMsg.ReactorOne.transform.position,Quaternion.identity);
                     break;
                 }
         }
@@ -484,6 +490,7 @@ public class ReactionManager : EleAndReaction
             case Reactor.ObjectType.WeakElement:
                 {
                     Debug.Log(RMsg.ReactorTwo.name + "为弱元素，蒸发反应后应被摧毁");
+                    Instantiate(SmokePrefab, RMsg.ReactorOne.transform.position, Quaternion.identity);
                     break;
                 }
         }

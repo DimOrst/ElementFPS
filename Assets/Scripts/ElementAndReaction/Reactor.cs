@@ -23,7 +23,7 @@ public class Reactor : EleAndReaction
         RM = FindObjectOfType<ReactionManager>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         //后面会改为tag或layer判断
         Reactor otherReactor = other.gameObject.GetComponent<Reactor>();
