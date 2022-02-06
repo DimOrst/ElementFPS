@@ -8,6 +8,7 @@ public class ReactionManager : EleAndReaction
 
     public GameObject SmokePrefab;
     public GameObject WaterThunderPrefab;
+    public GameObject IceGap;
     
     public void SendNewReaction(ReactionMsg RMsg)
     {
@@ -215,6 +216,7 @@ public class ReactionManager : EleAndReaction
     //重写的元素反应函数，写法非常笨蛋
     #region
 
+    //done
     public override void Electrocuted(ReactionMsg RMsg)
     {
         switch (RMsg.ReactorOne.OT)
@@ -286,6 +288,7 @@ public class ReactionManager : EleAndReaction
                     else
                     {
                         Debug.Log(RMsg.ReactorOne.name + "水体被冻结。");
+                        Instantiate(IceGap, RMsg.ReactorOne.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                         //在水面上生成冰层效果，生成的冰层视为弱元素
                     }
                     break;
@@ -306,13 +309,14 @@ public class ReactionManager : EleAndReaction
                 }
             case Reactor.ObjectType.StrongElement:
                 {
-                    if (RMsg.ReactorTwo.OT == Reactor.ObjectType.Character)
+                    if (RMsg.ReactorOne.OT == Reactor.ObjectType.Character)
                     {
                         Debug.Log(RMsg.ReactorOne.name + "水体不发生变化。");
                     }
                     else
                     {
                         Debug.Log(RMsg.ReactorOne.name + "水体被冻结。");
+                        Instantiate(IceGap, RMsg.ReactorTwo.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                         //在水面上生成冰层效果，生成的冰层视为弱元素
                     }
                     break;
